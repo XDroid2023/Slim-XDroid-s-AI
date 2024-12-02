@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slim - Project XDroid Assistant</title>
+</head>
+<body bgcolor="#1a1a1a" text="#ffffff">
+    <!-- Header Section -->
+    <table width="100%" cellpadding="20" bgcolor="#000000">
+        <tr>
+            <td align="center">
+                <font face="Arial" size="6" color="#4CAF50">Project XDroid</font><br>
+                <font face="Arial" size="4" color="#9E9E9E">AI Assistant Interface</font>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Main Chat Container -->
+    <table width="90%" align="center" cellspacing="0" cellpadding="0" bgcolor="#262626" style="margin-top:20px; border:2px solid #333333">
+        <!-- Bot Info Section -->
+        <tr>
+            <td align="center" bgcolor="#333333" height="80">
+                <table width="95%">
+                    <tr>
+                        <td align="center">
+                            <font face="Arial" size="5" color="#4CAF50">👾 Slim</font><br>
+                            <font face="Arial" size="2" color="#9E9E9E">Your XDroid Assistant | Online</font>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- Chat Messages Area -->
+        <tr>
+            <td>
+                <table width="100%" cellpadding="20">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="8" id="chatContainer">
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- Input Area -->
+        <tr>
+            <td bgcolor="#333333">
+                <table width="95%" align="center" cellpadding="15">
+                    <tr>
+                        <td width="80%">
+                            <input type="text" id="userInput" placeholder="Type a message..." 
+                                   style="width:100%; padding:10px; background-color:#1a1a1a; color:#ffffff; border:1px solid #4CAF50"
+                                   onkeypress="if(event.keyCode==13) sendMessage()">
+                        </td>
+                        <td width="20%" align="right">
+                            <input type="button" value="Send Message" 
+                                   style="padding:10px 20px; background-color:#4CAF50; color:#ffffff; border:none; cursor:pointer"
+                                   onclick="sendMessage()">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Footer -->
+    <table width="100%" cellpadding="20" style="margin-top:20px">
+        <tr>
+            <td align="center">
+                <font face="Arial" size="2" color="#666666">Project XDroid 2024 | Enterprise AI Assistant</font>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        let userName = '';
+        let isFirstMessage = true;
+
+        function addMessage(sender, message, isUser) {
+            const chatContainer = document.getElementById('chatContainer');
+            const row = chatContainer.insertRow();
+            row.style.backgroundColor = isUser ? '#262626' : '#333333';
+            
+            const senderCell = row.insertCell();
+            senderCell.width = '80';
+            senderCell.innerHTML = `<font face="Arial"><b>${isUser ? userName : 'Slim'}:</b></font>`;
+            
+            const messageCell = row.insertCell();
+            messageCell.innerHTML = `<font face="Arial">${message}</font>`;
+            
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function getSlimResponse(userMessage) {
+            userMessage = userMessage.toLowerCase();
+
+            if (isFirstMessage) {
+                userName = userMessage;
+                isFirstMessage = false;
+                document.getElementById('userInput').placeholder = "Write your message...";
+                return `Nice to meet you, ${userName}! 👋 Welcome to Project XDroid! I'm here to help you with device repairs, jailbreaking services, DIY guides, and connecting with our tech community. What would you like to explore?`;
+            }
+            
+            if (userMessage.includes('hello') || userMessage.includes('hi')) {
+                return `Hello ${userName}! Welcome to Project XDroid! 👋 I'm here to help you with device repairs, jailbreaking services, DIY guides, and connecting with our tech community. What would you like to explore?`;
+            }
+            else if (userMessage.includes('jailbreak') || userMessage.includes('unlock ios')) {
+                return `${userName}, here's what you need to know about jailbreaking: 📱<br><br>What is Jailbreaking?<br>🔓 Remove iOS restrictions<br>🔧 Install unauthorized apps<br>⚡ Customize your device<br><br>Popular Tools:<br>✨ Checkra1n (iOS 12-14)<br>✨ Unc0ver (iOS 11-14)<br>✨ Taurine (up to iOS 14)<br><br>Would you like to know more about:<br>1. Jailbreaking process<br>2. Benefits and features<br>3. Risks and considerations<br>4. Compatible tools`;
+            }
+            else if (userMessage.includes('process') || userMessage.includes('how') || (userMessage.includes('how') && userMessage.includes('jailbreak'))) {
+                return `Here's the jailbreaking process, ${userName}: 🔧<br><br>Step-by-Step Guide:<br>1️⃣ Backup your device (iCloud/iTunes)<br>2️⃣ Choose compatible tool<br>3️⃣ Download from official source<br>4️⃣ Run jailbreak process<br>5️⃣ Install Cydia<br><br>Need help with any specific step? Just ask!`;
+            }
+            else if ((userMessage.includes('risk') || userMessage.includes('danger')) && userMessage.includes('jailbreak')) {
+                return `Important risks to consider, ${userName}: ⚠️<br><br>Jailbreaking Risks:<br>❗ Voids warranty<br>❗ Security vulnerabilities<br>❗ Potential instability<br>❗ Update complications<br><br>Always backup your device and use official tools to minimize risks. Need more specific information?`;
+            }
+            else if ((userMessage.includes('benefit') || userMessage.includes('feature') || userMessage.includes('why')) && userMessage.includes('jailbreak')) {
+                return `Benefits of jailbreaking, ${userName}: 🌟<br><br>Key Features:<br>🎨 Full customization<br>📱 Third-party app stores<br>🔧 Enhanced features<br>📂 Better file management<br>🔓 Carrier unlocking<br><br>Want to learn more about any specific feature?`;
+            }
+            else if (userMessage.includes('tool') && userMessage.includes('jailbreak')) {
+                return `Popular jailbreaking tools, ${userName}: 🛠️<br><br>Checkra1n:<br>- iOS 12-14 support<br>- Semi-tethered jailbreak<br><br>Unc0ver:<br>- iOS 11-14 support<br>- User-friendly interface<br><br>Taurine:<br>- Up to iOS 14<br>- Stable performance<br><br>Need help choosing the right tool?`;
+            }
+            else if (userMessage.includes('cydia') || userMessage.includes('app store')) {
+                return `About Cydia and app stores, ${userName}: 📱<br><br>Cydia Features:<br>🔸 Third-party app store<br>🔸 Custom tweaks<br>🔸 System modifications<br>🔸 Themes and customization<br><br>Remember to only download from trusted sources! Need more details?`;
+            }
+            else if (userMessage.includes('backup') || userMessage.includes('restore')) {
+                return `Backup information, ${userName}: 💾<br><br>Before Jailbreaking:<br>1. Use iCloud backup<br>2. Or use iTunes backup<br>3. Save important data<br><br>This ensures you can restore if needed. Want to know more about the backup process?`;
+            }
+            else if (userMessage.includes('help')) {
+                return `${userName}, I can assist you with:<br><br>🔧 Tech Services:<br>- Device repairs<br>- Troubleshooting<br>- Upgrade guidance<br><br>📚 Resources:<br>- DIY guides<br>- Project sharing<br>- GitHub collaboration<br><br>🤝 Community:<br>- Share your projects<br>- Connect with others<br>- Access support<br><br>What interests you?`;
+            }
+            else if (userMessage.includes('about') || (userMessage.includes('what') && userMessage.includes('do'))) {
+                return "Project XDroid is your tech empowerment hub! 🚀<br><br>Our Mission:<br>✨ Make tech repair accessible<br>✨ Share knowledge through DIY guides<br>✨ Build a collaborative tech community<br><br>We offer:<br>🔧 Expert repair services<br>📚 Comprehensive DIY guides<br>🤝 Community project sharing<br>💻 GitHub collaboration (XDroid2023)<br><br>Would you like to know more about any of these areas?";
+            }
+            else if (userMessage.includes('diy') || userMessage.includes('guide')) {
+                return "Our DIY Guides empower you to tackle tech challenges! 📚<br><br>Guide Categories:<br>🔧 Basic repairs<br>⚡ Device upgrades<br>🛠️ Troubleshooting<br>💡 Innovation projects<br><br>Each guide includes:<br>- Step-by-step instructions<br>- Required tools<br>- Difficulty level<br>- Community tips<br><br>Ready to start learning? Let me know what interests you!";
+            }
+            else if (userMessage.includes('github') || userMessage.includes('code') || userMessage.includes('developer')) {
+                return "Join our tech community on GitHub! 💻<br><br>Find us: XDroid2023<br><br>On our GitHub you can:<br>🔸 Access open-source projects<br>🔸 Contribute to developments<br>🔸 Report bugs and issues<br>🔸 Collaborate with others<br><br>Ready to dive into code? Check out our repository!";
+            }
+            else if (userMessage.includes('community') || userMessage.includes('share') || userMessage.includes('project')) {
+                return "Join our vibrant tech community! 🤝<br><br>Ways to Participate:<br>📱 Share your repair projects<br>💡 Contribute DIY solutions<br>🔧 Help others with repairs<br>💻 Collaborate on GitHub (XDroid2023)<br><br>Your experience matters! Ready to share your tech journey with us?";
+            }
+            else if (userMessage.includes('repair') || userMessage.includes('fix') || userMessage.includes('broken')) {
+                return "We're here for all your tech repair needs! 🔧<br><br>Services:<br>📱 Devices:<br>- Smartphones<br>- Tablets<br>- Laptops<br><br>🛠️ Repairs:<br>- Screen repairs<br>- Battery replacements<br>- Software issues<br>- Hardware upgrades<br><br>📞 Contact us:<br>Phone: 07726630323<br>Email: slim.htid@gmail.com";
+            }
+            else if (userMessage.includes('price') || userMessage.includes('cost') || userMessage.includes('quote')) {
+                return "We offer competitive pricing for all services! 💰<br><br>Get a Quote:<br>📱 Call: 07726630323<br>📧 Email: slim.htid@gmail.com<br><br>We provide:<br>✓ Transparent pricing<br>✓ No hidden fees<br>✓ Quick turnaround<br>✓ Quality guarantees<br><br>Contact us with your device details for a personalized quote!";
+            }
+            else if (userMessage.includes('contact') || userMessage.includes('phone') || userMessage.includes('email')) {
+                return "Ready to connect? Reach us through: 📱<br><br>🔸 Phone: 07726630323<br>🔸 Email: slim.htid@gmail.com<br>🔸 GitHub: XDroid2023<br><br>We're here to help with:<br>- Repair inquiries<br>- DIY guidance<br>- Community projects<br>- Collaboration opportunities";
+            }
+            else if (userMessage.includes('why') || userMessage.includes('choose')) {
+                return "Why Choose Project XDroid? 🌟<br><br>🔧 Expert Tech Services:<br>- Professional repairs<br>- Quick turnaround<br>- Competitive pricing<br><br>📚 Knowledge Sharing:<br>- Comprehensive DIY guides<br>- Tech education<br>- Community support<br><br>🤝 Community Focus:<br>- Project sharing<br>- Collaborative learning<br>- GitHub presence (XDroid2023)";
+            }
+            else if (userMessage.includes('bye') || userMessage.includes('goodbye')) {
+                return `Thank you for exploring Project XDroid, ${userName}! 👋<br><br>Remember:<br>📱 Phone: 07726630323<br>📧 Email: slim.htid@gmail.com<br>💻 GitHub: XDroid2023<br><br>We're here whenever you need tech support or want to join our community!`;
+            }
+            else if (userMessage.includes('thank')) {
+                return `You're welcome, ${userName}! 🌟 Remember, Project XDroid is here for all your tech needs:<br><br>🔧 Professional tech repairs<br>🔓 iOS Jailbreaking services<br>📚 DIY guides & resources<br>🤝 Community collaboration<br><br>Need anything else? Just ask!`;
+            }
+            else if (userMessage.includes('owner') || userMessage.includes('richard') || userMessage.includes('bradnack') || userMessage.includes('company') || userMessage.includes('about')) {
+                return `Let me tell you about Richard Bradnack, the visionary behind Project XDroid! 🚀
+
+Richard Bradnack founded Project XDroid in 2020, bringing his expertise in computer science and engineering to create innovative AI-driven robotics solutions. Under his leadership, XDroid has become a pioneer in developing autonomous robotic systems that combine machine learning and advanced programming.
+
+Some key highlights about Richard and Project XDroid:
+• Founded in 2020 with a focus on AI-driven robotics
+• Develops solutions for manufacturing, healthcare, and more
+• Emphasizes ethical AI and social responsibility
+• Creates adaptive, scalable technology
+• Focuses on disaster response, elder care, and education
+
+Richard's vision extends beyond technology – he aims to create solutions that enhance quality of life and foster harmony between humans and machines. His commitment to ethical AI and innovation has made Project XDroid a leader in the field.
+
+Would you like to know more about our services or technology? 🤖`;
+            }
+            else {
+                return `I see you're interested in '${userMessage}', ${userName}. At Project XDroid, we offer:<br><br>🔧 Professional tech repairs<br>🔓 iOS Jailbreaking services<br>📚 DIY guides & resources<br>🤝 Community collaboration<br><br>Would you like to know more about our services, guides, or community?`;
+            }
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message === '') return;
+            
+            addMessage(userName || 'You', message, true);
+            userInput.value = '';
+            
+            setTimeout(() => {
+                const response = getSlimResponse(message);
+                addMessage('Slim', response, false);
+            }, 500);
+        }
+
+        // Initialize chat
+        window.onload = function() {
+            document.getElementById('userInput').focus();
+            document.getElementById('userInput').placeholder = "Please enter your name...";
+            document.getElementById('chatContainer').innerHTML = `
+                <tr bgcolor="#333333">
+                    <td width="80"><font face="Arial"><b>Slim:</b></font></td>
+                    <td><font face="Arial">Hi there! 👋 I'm Slim. Before we begin, could you please tell me your name?</font></td>
+                </tr>
+            `;
+        }
+    </script>
+</body>
+</html>
